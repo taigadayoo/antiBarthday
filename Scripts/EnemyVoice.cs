@@ -4,51 +4,44 @@ using UnityEngine;
 
 public class EnemyVoice : MonoBehaviour
 {
-    public AudioClip BirdSE;
-    public AudioClip MobSE;
-    public AudioClip AntiSE;
-    public AudioSource audioSource;
-    public AudioSource audioSourceMattyo;
-    public AudioSource audioSourceAnti;
+    public AudioClip BirdSE; // 鳥の効果音
+    public AudioClip MobSE; // モブの効果音
+    public AudioClip AntiSE; // アンチの効果音
+    public AudioSource audioSource; // 鳥の音声を再生するAudioSource
+    public AudioSource audioSourceMattyo; // モブの音声を再生するAudioSource
+    public AudioSource audioSourceAnti; // アンチの音声を再生するAudioSource
 
+    public bool OneVoice = false; // 一度だけ音声を再生するフラグ
 
-    public bool OneVoice = false;
-
-    
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    // 通常の鳥の声を再生するメソッド
     public void BirdVoiceNomal()
     {
-        StartCoroutine(PlaySoundAndWait());
+        StartCoroutine(PlaySoundAndWait()); // サウンドを再生するコルーチンを開始
     }
+
+    // 音声を再生して待機するコルーチン
     IEnumerator PlaySoundAndWait()
     {
-        if (!OneVoice)
+        if (!OneVoice) // 一度も再生していない場合
         {
-            audioSource.clip = BirdSE;
-            audioSource.Play();
-            //audioSource.loop = true;
-            OneVoice = true;
-            yield return new WaitForSeconds(audioSource.clip.length);
-            OneVoice = false;
+            audioSource.clip = BirdSE; // 鳥の効果音を設定
+            audioSource.Play(); // 音声を再生
+            //audioSource.loop = true; // ループ設定（コメントアウト中）
+            OneVoice = true; // フラグを立てる
+            yield return new WaitForSeconds(audioSource.clip.length); // 音声の再生が終わるまで待つ
+            OneVoice = false; // フラグをリセット
         }
     }
+
+    // 鳥が死んだときの効果音を再生するメソッド
     public void BirdDeath()
     {
-        SampleSoundManager.Instance.PlaySe(SeType.SE12);
+        SampleSoundManager.Instance.PlaySe(SeType.SE12); // 死亡効果音を再生
     }
+
+    // 音声再生フラグをリセットするメソッド
     public void OneVoiceReset()
     {
-        OneVoice = false;
+        OneVoice = false; // フラグをリセット
     }
 }

@@ -19,7 +19,7 @@ public class Gear : MonoBehaviour
     {
         if( collision.gameObject.tag == "RedCake")
         {
-            Instantiate(deathEffect, this.transform.position, this.transform.rotation);
+            Instantiate(deathEffect, this.transform.position, this.transform.rotation);//回復アイテムに触れた際に残弾を回復
             Destroy(this.gameObject);
         }
     }
